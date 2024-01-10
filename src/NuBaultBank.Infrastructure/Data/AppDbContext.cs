@@ -1,9 +1,10 @@
-﻿using NuBaultBank.Core.ProjectAggregate;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using NuBaultBank.Core.Entities.LogAggregate;
+using NuBaultBank.Core.Entities.UserAggregate;
 using NuBaultBank.Infrastructure.Data.Extensions;
 using NuBaultBank.SharedKernel;
 using NuBaultBank.SharedKernel.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace NuBaultBank.Infrastructure.Data;
 
@@ -18,9 +19,8 @@ public class AppDbContext : DbContext
     _dispatcher = dispatcher;
   }
 
-  public DbSet<ToDoItem> ToDoItems => Set<ToDoItem>();
-  public DbSet<Project> Projects => Set<Project>();
-
+  public DbSet<User> Users => Set<User>();
+  public DbSet<Log> Logs => Set<Log>();
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
     base.OnModelCreating(modelBuilder);
@@ -38,13 +38,6 @@ public class AppDbContext : DbContext
       switch (entry.State)
       {
         case EntityState.Added:
-
-          //if (entry.Entity.Id > 0)
-          //{
-          //    entry.State = EntityState.Modified;
-          //    goto case EntityState.Modified;
-          //}
-
           entry.Entity.Deleted = false;
           entry.Entity.CreatedDate = DateTimeOffset.UtcNow;
           break;

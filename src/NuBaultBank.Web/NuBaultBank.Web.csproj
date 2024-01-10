@@ -29,6 +29,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
     <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" />
     <PackageReference Include="Microsoft.Azure.KeyVault" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
   </ItemGroup>
   
   <ItemGroup>

@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using NuBaultBank.Core.ProjectAggregate;
-using NuBaultBank.Infrastructure.ApiModels;
+﻿using AutoMapper;
+using NuBaultBank.Core.Entities.LogAggregate;
+using NuBaultBank.Core.Entities.UserAggregate;
+using NuBaultBank.Infrastructure.Dto.LogDtos;
+using NuBaultBank.Infrastructure.Dto.UserDtos;
 
 namespace NuBaultBank.Infrastructure.Config;
 public class MainMapperProfile : Profile
 {
   public MainMapperProfile()
   {
-    CreateMap<Project, ProjectDTO>().ReverseMap().ForMember(dto => dto.Items, config => config.MapFrom(entity => entity.Items));
-    CreateMap<ToDoItem, ToDoItemDTO>().ReverseMap();
+    CreateMap<User, UserDto>().ReverseMap();
+    CreateMap<User, UserResponseDto>().ReverseMap();
+
+    CreateMap<Log, LogResponseDto>().ReverseMap();
   }
 }
