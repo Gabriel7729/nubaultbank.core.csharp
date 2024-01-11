@@ -75,11 +75,11 @@ public class AuthService : IAuthService
         case "email":
           tokenClaim.Email = claim.Value;
           break;
-        case "role":
-          tokenClaim.Role = claim.Value;
-          break;
         case "userName":
           tokenClaim.UserName = claim.Value;
+          break;
+        case "idNumber":
+          tokenClaim.IdNumber = claim.Value;
           break;
         default:
           break;
