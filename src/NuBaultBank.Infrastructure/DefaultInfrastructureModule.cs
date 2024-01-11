@@ -1,13 +1,14 @@
-﻿using Autofac;
+﻿using System.Reflection;
+using Autofac;
 using MediatR;
 using MediatR.Pipeline;
+using NuBaultBank.Core.Entities.LogAggregate;
 using NuBaultBank.Core.Interfaces;
-using NuBaultBank.Core.ProjectAggregate;
 using NuBaultBank.Infrastructure.Config;
 using NuBaultBank.Infrastructure.Data;
+using NuBaultBank.Infrastructure.Services;
 using NuBaultBank.SharedKernel;
 using NuBaultBank.SharedKernel.Interfaces;
-using System.Reflection;
 using Module = Autofac.Module;
 
 namespace NuBaultBank.Infrastructure;
@@ -20,7 +21,7 @@ public class DefaultInfrastructureModule : Module
       public DefaultInfrastructureModule(bool isDevelopment, Assembly? callingAssembly = null)
       {
           _isDevelopment = isDevelopment;
-          var coreAssembly = Assembly.GetAssembly(typeof(Project)); // TODO: Replace "Project" with any type from your Core project
+          var coreAssembly = Assembly.GetAssembly(typeof(Log)); // TODO: Replace "Log" with any type from your Core project
           var infrastructureAssembly = Assembly.GetAssembly(typeof(StartupSetup));
           if (coreAssembly != null)
           {
@@ -93,7 +94,10 @@ public class DefaultInfrastructureModule : Module
     
           builder.RegisterType<RestClient>().As<IRestClient>()
                     .InstancePerLifetimeScope();
-      }
+
+          builder.RegisterType<AuthService>().As<IAuthService>()
+                .InstancePerLifetimeScope();
+  }
 
       private void RegisterDevelopmentOnlyDependencies(ContainerBuilder builder)
       {
