@@ -1,9 +1,16 @@
 ﻿using NuBaultBank.Core.Enums;
-using NuBaultBank.SharedKernel;
-using NuBaultBank.SharedKernel.Interfaces;
 
-namespace NuBaultBank.Core.Entities.TransferAggregate;
-public class Transfer : EntityBase, IAggregateRoot
+namespace NuBaultBank.Infrastructure.Dto.TransferDtos;
+public class TransferDto
+{
+  public Guid SourceAccountId { get; set; }
+  public Guid DestinationAccountId { get; set; }
+  public decimal Amount { get; set; }
+  public string Concept { get; set; } = string.Empty;
+  public Guid UserId { get; set; }
+}
+
+public class TransferResponseDto : BaseResponseDto
 {
   public Guid SourceAccountId { get; set; }
   public Guid DestinationAccountId { get; set; }

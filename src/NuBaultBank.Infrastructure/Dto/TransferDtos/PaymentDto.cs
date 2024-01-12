@@ -1,9 +1,11 @@
-﻿using NuBaultBank.SharedKernel.Interfaces;
-using NuBaultBank.SharedKernel;
-using NuBaultBank.Core.Enums;
+﻿using NuBaultBank.Core.Enums;
 
-namespace NuBaultBank.Core.Entities.TransferAggregate;
-public class Payment : EntityBase, IAggregateRoot
+namespace NuBaultBank.Infrastructure.Dto.TransferDtos;
+public class PaymentDto
+{
+}
+
+public class PaymentResponseDto : BaseResponseDto
 {
   public Guid LoanId { get; set; }
   public decimal Amount { get; set; }

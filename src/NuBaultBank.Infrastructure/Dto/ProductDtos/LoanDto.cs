@@ -1,4 +1,5 @@
 ﻿using NuBaultBank.Core.Enums;
+using NuBaultBank.Infrastructure.Dto.TransferDtos;
 
 namespace NuBaultBank.Infrastructure.Dto.ProductDtos;
 public class LoanDto
@@ -22,4 +23,6 @@ public class LoanResponseDto : BaseResponseDto
   public double MonthlyPayment { get;  set; }
   public LoanStatus Status { get;  set; }
   public Guid UserId { get; set; }
+
+  public ICollection<PaymentResponseDto> Payments { get; set; } = new List<PaymentResponseDto>();
 }

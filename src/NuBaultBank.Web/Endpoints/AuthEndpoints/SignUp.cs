@@ -56,7 +56,7 @@ public class SignUp : EndpointBaseAsync
     }
     catch (Exception ex)
     {
-      await _logService.CreateLog(HttpContext, "Error al crear la cuenta del usuario", ActionStatus.Error, exceptionMessage: ex.ToString(), cancellationToken: cancellationToken);
+      await _logService.CreateLog($"{request.Name} {request.LastName}", "Error al crear la cuenta del usuario", ActionStatus.Error, exceptionMessage: ex.ToString(), cancellationToken: cancellationToken);
       return BadRequest(Result<UserResponseDto>.Error(new string[] { "Ha ocurrido un error creando la cuenta del usuario", ex.Message }));
     }
   }

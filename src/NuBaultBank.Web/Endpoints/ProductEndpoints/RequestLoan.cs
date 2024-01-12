@@ -1,6 +1,7 @@
 ﻿using Ardalis.ApiEndpoints;
 using Ardalis.Result;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuBaultBank.Core.Entities.ProductAggregate;
 using NuBaultBank.Core.Enums;
@@ -11,6 +12,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace NuBaultBank.Web.Endpoints.ProductEndpoints;
 
+[Authorize]
 public class RequestLoan : EndpointBaseAsync
   .WithRequest<LoanDto>
   .WithActionResult<LoanResponseDto>

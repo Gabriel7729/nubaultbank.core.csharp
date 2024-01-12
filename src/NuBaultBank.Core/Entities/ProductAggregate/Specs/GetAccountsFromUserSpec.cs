@@ -1,7 +1,7 @@
 ﻿using Ardalis.Specification;
 
 namespace NuBaultBank.Core.Entities.ProductAggregate.Specs;
-public class GetAccountsFromUserSpec : Specification<Account>, ISingleResultSpecification
+public class GetAccountsFromUserSpec : Specification<Account>
 {
   public GetAccountsFromUserSpec(Guid userId)
   {

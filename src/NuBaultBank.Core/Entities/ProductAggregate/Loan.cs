@@ -1,6 +1,7 @@
 ﻿using NuBaultBank.SharedKernel.Interfaces;
 using NuBaultBank.SharedKernel;
 using NuBaultBank.Core.Enums;
+using NuBaultBank.Core.Entities.TransferAggregate;
 
 namespace NuBaultBank.Core.Entities.ProductAggregate;
 public class Loan : EntityBase, IAggregateRoot
@@ -11,6 +12,8 @@ public class Loan : EntityBase, IAggregateRoot
   public double MonthlyPayment { get; private set; }
   public LoanStatus Status { get; private set; }
   public Guid UserId { get; set; }
+
+  public ICollection<Payment> Payments { get; set; } = new List<Payment>();
 
   public void AddLoanData(double loanAmount, int loanDurationMonths)
   {

@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuBaultBank.Core.Entities.ProductAggregate;
+using NuBaultBank.Core.Entities.ProductAggregate.Specs;
 using NuBaultBank.Core.Enums;
 using NuBaultBank.Core.Interfaces;
 using NuBaultBank.Infrastructure.Dto.ProductDtos;
@@ -42,7 +43,8 @@ public class GetLoanDetails : EndpointBaseAsync
   {
     try
     {
-      Loan? loan = await _loanRepository.GetByIdAsync(loanId, cancellationToken);
+      GetLoanDetailsSpec spec = new(loanId);
+      Loan? loan = await _loanRepository.GetBySpecAsync(spec, cancellationToken);
       if (loan is null)
         return NotFound(Result<LoanResponseDto>.Error(new string[] { $"El prestamo no fue encontrado" }));
 

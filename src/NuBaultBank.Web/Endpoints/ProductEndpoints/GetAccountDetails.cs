@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuBaultBank.Core.Entities.ProductAggregate;
+using NuBaultBank.Core.Entities.ProductAggregate.Specs;
 using NuBaultBank.Core.Enums;
 using NuBaultBank.Core.Interfaces;
 using NuBaultBank.Infrastructure.Dto.ProductDtos;
@@ -42,7 +43,8 @@ public class GetAccountDetails : EndpointBaseAsync
   {
     try
     {
-      Account? account = await _accountRepository.GetByIdAsync(accountId, cancellationToken);
+      GetAccountDetailsSpec spec = new(accountId);
+      Account? account = await _accountRepository.GetBySpecAsync(spec, cancellationToken);
       if (account is null)
         return NotFound(Result<AccountResponseDto>.Error(new string[] { $"La cuenta no fue encontrado" }));
 

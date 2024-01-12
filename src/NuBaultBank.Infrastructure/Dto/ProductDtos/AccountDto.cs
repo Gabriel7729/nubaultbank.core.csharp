@@ -1,4 +1,5 @@
 ﻿using NuBaultBank.Core.Enums;
+using NuBaultBank.Infrastructure.Dto.TransferDtos;
 
 namespace NuBaultBank.Infrastructure.Dto.ProductDtos;
 public class AccountDto
@@ -19,4 +20,6 @@ public class AccountResponseDto : BaseResponseDto
   public decimal Balance { get; private set; }
   public AccountType AccountType { get; set; }
   public Guid UserId { get; set; }
+
+  public ICollection<TransferResponseDto> Transfers { get; set; } = new List<TransferResponseDto>();
 }
