@@ -1,6 +1,7 @@
 ﻿using Ardalis.ApiEndpoints;
 using Ardalis.Result;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuBaultBank.Core.Abstracts;
 using NuBaultBank.Core.Entities.LogAggregate;
@@ -12,6 +13,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace NuBaultBank.Web.Endpoints.LogEndpoints;
 
+[Authorize]
 public class List : EndpointBaseAsync
   .WithRequest<FilterLogQuery>
   .WithActionResult<PaginationResult<List<LogResponseDto>>>
