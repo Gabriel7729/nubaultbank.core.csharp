@@ -1,4 +1,5 @@
-﻿using NuBaultBank.Core.Enums;
+﻿using NuBaultBank.Core.Entities.ProductAggregate;
+using NuBaultBank.Core.Entities.UserAggregate.Events;
 using NuBaultBank.SharedKernel;
 using NuBaultBank.SharedKernel.Interfaces;
 
@@ -12,4 +13,11 @@ public class User : EntityBase, IAggregateRoot
   public bool IsActive { get; set; } = false;
   public string Email { get; set; } = string.Empty;
   public string Password { get; set; } = string.Empty;
+
+  public ICollection<Account> Accounts { get; set; } = new List<Account>();
+
+  public void CallEventUserCreatedAddCheckingAccount()
+  {
+    RegisterDomainEvent(new UserCreatedAddCheckingAccount(this));
+  }
 }
