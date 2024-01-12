@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using NuBaultBank.Core.Entities.LogAggregate;
+using NuBaultBank.Core.Entities.ProductAggregate;
 using NuBaultBank.Core.Entities.UserAggregate;
 using NuBaultBank.Infrastructure.Data.Extensions;
 using NuBaultBank.SharedKernel;
@@ -20,6 +21,7 @@ public class AppDbContext : DbContext
   }
 
   public DbSet<User> Users => Set<User>();
+  public DbSet<Account> Accounts => Set<Account>();
   public DbSet<Log> Logs => Set<Log>();
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {

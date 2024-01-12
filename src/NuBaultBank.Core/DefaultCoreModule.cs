@@ -9,5 +9,8 @@ public class DefaultCoreModule : Module
   {
     builder.RegisterType<LogService>()
         .As<ILogService>().InstancePerLifetimeScope();
+
+    builder.RegisterType<ProductService>()
+        .As<IProductService>().InstancePerLifetimeScope();
   }
 }
