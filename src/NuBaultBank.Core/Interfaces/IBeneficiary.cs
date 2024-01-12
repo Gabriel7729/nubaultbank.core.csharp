@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ardalis.Result;
+using NuBaultBank.Core.Entities.BeneficiaryAggregate;
+using NuBaultBank.Core.Models;
 
 namespace NuBaultBank.Core.Interfaces;
-internal class IBeneficiary
+
+public interface IBeneficiary
 {
+  Task<Result<Beneficiary>> EditBeneficiaryAsync(Beneficiary requestEntity, CancellationToken cancellationToken = default);
 }
