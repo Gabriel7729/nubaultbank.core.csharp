@@ -15,6 +15,7 @@ public class User : EntityBase, IAggregateRoot
   public string Password { get; set; } = string.Empty;
 
   public ICollection<Account> Accounts { get; set; } = new List<Account>();
+  public ICollection<Loan> Loans { get; set; } = new List<Loan>();
 
   public void CallEventUserCreatedAddCheckingAccount()
   {

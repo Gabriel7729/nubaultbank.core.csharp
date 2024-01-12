@@ -7,6 +7,7 @@ using NuBaultBank.Core.Abstracts;
 using NuBaultBank.Core.Entities.UserAggregate;
 using NuBaultBank.Core.Entities.UserAggregate.Specs;
 using NuBaultBank.Core.Enums;
+using NuBaultBank.Core.Interfaces;
 using NuBaultBank.Infrastructure.Dto.UserDtos;
 using NuBaultBank.SharedKernel.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
@@ -20,13 +21,16 @@ public class ListPaginated : EndpointBaseAsync
 {
   private readonly IRepository<User> _userRepository;
   private readonly IMapper _mapper;
+  private readonly ILogService _logService;
 
   public ListPaginated(
-    IRepository<User> userRepository,
-    IMapper mapper)
+      IRepository<User> userRepository,
+      IMapper mapper,
+      ILogService logService)
   {
     _userRepository = userRepository;
     _mapper = mapper;
+    _logService = logService;
   }
 
   [HttpGet("/api/User/Paginated")]
@@ -51,12 +55,15 @@ public class ListPaginated : EndpointBaseAsync
         userResponseDto,
         spec);
 
+      await _logService.CreateLog(HttpContext, "Listado de usuarios paginados obtenidos correctamente", ActionStatus.Success, cancellationToken: cancellationToken);  // Add this line
+
       var result = Result<PaginationResult<List<UserResponseDto>>>.Success(paginatedList);
       return Ok(result);
     }
-    catch (Exception)
+    catch (Exception ex)
     {
-      return BadRequest(Result<PaginationResult<List<UserResponseDto>>>.Error(new string[] { "An error has occurred getting all users" }));
+      await _logService.CreateLog(HttpContext, "Ha ocurrido un error obteniendo el listado de usuarios paginados", ActionStatus.Error, exceptionMessage: ex.ToString(), cancellationToken: cancellationToken);
+      return BadRequest(Result<PaginationResult<List<UserResponseDto>>>.Error(new string[] { "Ha ocurrido un error obteniendo el listado de usuarios paginados" }));
     }
   }
 }
