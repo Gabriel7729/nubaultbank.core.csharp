@@ -12,5 +12,8 @@ public class DefaultCoreModule : Module
 
     builder.RegisterType<ProductService>()
         .As<IProductService>().InstancePerLifetimeScope();
+
+    builder.RegisterType<LoanService>()
+        .As<ILoanService>().InstancePerLifetimeScope();
   }
 }
