@@ -66,7 +66,7 @@ public class ExpressTransfer : EndpointBaseAsync
       transfer.UpdateTransference();
 
       Transfer transferResponse = await _transferRepository.AddAsync(transfer, cancellationToken);
-      await _logService.CreateLog(HttpContext, $"La transferencia desde la cuenta {sourceAccount.AccountNumber} a la cuenta {destinationAccount.AccountNumber} con el monto de {transferDto.Amount} ha sido realizada con exito", ActionStatus.Success, cancellationToken: cancellationToken);
+      await _logService.CreateLog(HttpContext, $"La transferencia desde la cuenta {sourceAccount.AccountNumber} a la cuenta {destinationAccount.AccountNumber} con el monto de {request.Amount} ha sido realizada con exito", ActionStatus.Success, cancellationToken: cancellationToken);
 
       await _accountRepository.CommitTransactionAsync(cancellationToken);
       await _accountRepository.DisposeTransactionAsync();
