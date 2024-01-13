@@ -1,5 +1,6 @@
 ﻿using Ardalis.ApiEndpoints;
 using Ardalis.Result;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuBaultBank.Core.Entities.BeneficiaryAggregate;
@@ -17,24 +18,28 @@ public class EditBeneficiary : EndpointBaseAsync
     .WithRequest<BeneficiaryDTO>
     .WithActionResult<BeneficiaryResponseDTO>
 {
-  private readonly IBeneficiary _beneficiaryAppService;
+  private readonly IMapper _mapper;
   private readonly ILogService _logService;
   private readonly IRepository<User> _userRepository;
   private readonly IRepository<Beneficiary> _beneficiaryRepository;
 
-  public EditBeneficiary(IBeneficiary beneficiaryAppService, ILogService logService, IRepository<User> userRepository, IRepository<Beneficiary> beneficiaryRepository)
+  public EditBeneficiary(
+    IMapper mapper,
+    ILogService logService, 
+    IRepository<User> userRepository, 
+    IRepository<Beneficiary> beneficiaryRepository)
   {
-    _beneficiaryAppService = beneficiaryAppService;
     _logService = logService;
     _userRepository = userRepository;
     _beneficiaryRepository = beneficiaryRepository;
+    _mapper = mapper;
   }
 
-  [HttpPut("/api/Beneficiary/Edit")]
+  [HttpPut("/api/Beneficiary")]
   [SwaggerOperation(
       Summary = "Edit Beneficiary",
       Description = "Edit Beneficiary",
-      OperationId = "EditBeneficiary.User",
+      OperationId = "BeneficiaryEndpoints.Edit",
       Tags = new[] { "BeneficiaryEndpoints" })
   ]
   public override async Task<ActionResult<BeneficiaryResponseDTO>> HandleAsync([FromBody] BeneficiaryDTO requestDto, CancellationToken cancellationToken = default)
@@ -51,44 +56,14 @@ public class EditBeneficiary : EndpointBaseAsync
       if (!Guid.TryParse(requestDto.BeneficiaryId, out Guid beneficiaryIdGuid))
         return BadRequest(Result<BeneficiaryResponseDTO>.Error("El formato del BeneficiaryId no es válido"));
 
-      //aqui intento verificar si el veneficiario ya existe, pero no entendi bien xd
+      Beneficiary beneficiary = _mapper.Map<Beneficiary>(requestDto);
+      await _beneficiaryRepository.UpdateAsync(beneficiary, cancellationToken);
 
-      /*      GetBeneficiaryByIdSpec beneficiaryByIdSpec = new(beneficiaryIdGuid);
-            Beneficiary? existingBeneficiary = await _beneficiaryRepository.GetBySpecAsync(beneficiaryByIdSpec, cancellationToken);
+      BeneficiaryDTO beneficiaryDTO = _mapper.Map<BeneficiaryDTO>(beneficiary);
+      BeneficiaryResponseDTO response = new BeneficiaryResponseDTO(beneficiaryDTO, "Beneficiario editado con éxito", true);
 
-            GetIfUserAlreadyhasABeneficiarySpec alreadyHasBeneficiarySpec = new(userIdGuid, requestDto.Email);
-            Beneficiary? existingBeneficiaryByEmail = await _beneficiaryRepository.GetBySpecAsync(alreadyHasBeneficiarySpec, cancellationToken);
-      */
-
-      //cree una vaina vacia para que no explote
-      Beneficiary existingBeneficiary = new Beneficiary();
-
-      if (existingBeneficiary != null)
-      {
-        existingBeneficiary.Name = requestDto.Name;
-        existingBeneficiary.PhoneNumber = requestDto.PhoneNumber;
-        existingBeneficiary.Email = requestDto.Email;
-
-
-      }
-      else
-      {
-        return BadRequest(Result<BeneficiaryResponseDTO>.Error("El beneficiario no existe."));
-      }
-
-      await _userRepository.UpdateAsync(user, cancellationToken);
-
+      var result = Result<BeneficiaryResponseDTO>.Success(response);
       await _logService.CreateLog(HttpContext, "Beneficiario editado con éxito", ActionStatus.Success, user.Id, cancellationToken: cancellationToken);
-
-      var result = Result<BeneficiaryResponseDTO>.Success(new BeneficiaryResponseDTO
-      {
-        Success = true,
-        Message = "Beneficiario editado con éxito",
-        UserId = user.Id.ToString(), 
-        Name = requestDto.Name,
-        PhoneNumber = requestDto.PhoneNumber,
-        Email = requestDto.Email,
-      });
 
       return Ok(result);
     }

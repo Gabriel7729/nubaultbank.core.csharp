@@ -3,6 +3,7 @@ using Ardalis.Result;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NuBaultBank.Core.Entities.ProductAggregate;
+using NuBaultBank.Core.Entities.ProductAggregate.Specs;
 using NuBaultBank.Core.Entities.TransferAggregate;
 using NuBaultBank.Core.Enums;
 using NuBaultBank.Core.Interfaces;
@@ -12,16 +13,16 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace NuBaultBank.Web.Endpoints.TransferEndpoints;
 
-public class TransferBetweenAccounts : EndpointBaseAsync
-  .WithRequest<TransferAccount>
-  .WithActionResult<TransferResponseDto>
+public class ExpressTransfer : EndpointBaseAsync
+  .WithRequest<ExpressTransferDto>
+  .WithActionResult
 {
   private readonly IRepository<Transfer> _transferRepository;
   private readonly IRepository<Account> _accountRepository;
   private readonly ILogService _logService;
   private readonly IMapper _mapper;
 
-  public TransferBetweenAccounts(
+  public ExpressTransfer(
     IRepository<Transfer> transferRepository,
     IRepository<Account> accountRepository,
     ILogService logService,
@@ -33,34 +34,35 @@ public class TransferBetweenAccounts : EndpointBaseAsync
     _mapper = mapper;
   }
 
-  [HttpPost("/api/Transfer/Request")]
+  [HttpPost("/api/Transfer/Express")]
   [SwaggerOperation(
-          Summary = "Transfer Between accounts",
-          Description = "Transfer Between accounts",
-          OperationId = "Transfer.BetweenAccounts",
+          Summary = "Transfer Between accounts express",
+          Description = "Transfer Between accounts express",
+          OperationId = "Transfer.ExpressTransfer",
           Tags = new[] { "TransferEndpoints" })
   ]
-  public override async Task<ActionResult<TransferResponseDto>> HandleAsync([FromBody] TransferAccount transferDto, CancellationToken cancellationToken = default)
+  public override async Task<ActionResult> HandleAsync([FromBody] ExpressTransferDto request, CancellationToken cancellationToken = default)
   {
     try
     {
-      Account? sourceAccount = await _accountRepository.GetByIdAsync(transferDto.SourceAccountId, cancellationToken);
+      Account? sourceAccount = await _accountRepository.GetByIdAsync(request.SourceAccountId, cancellationToken);
       if (sourceAccount == null)
         return BadRequest(Result<TransferResponseDto>.Error(new string[] { "La cuenta de origen no existe" }));
 
-      Account? destinationAccount = await _accountRepository.GetByIdAsync(transferDto.DestinationAccountId, cancellationToken);
+      GetAccountWithAccountNumberSpec spec = new(request.AccountDestinationNumber);
+      Account? destinationAccount = await _accountRepository.GetBySpecAsync(spec, cancellationToken);
       if (destinationAccount == null)
         return BadRequest(Result<TransferResponseDto>.Error(new string[] { "La cuenta de destino no existe" }));
 
       await _accountRepository.BeginTransactionAsync(cancellationToken);
 
-      sourceAccount.Withdraw(transferDto.Amount);
-      destinationAccount.Deposit(transferDto.Amount);
+      sourceAccount.Withdraw(request.Amount);
+      destinationAccount.Deposit(request.Amount);
 
       await _accountRepository.UpdateAsync(sourceAccount, cancellationToken);
       await _accountRepository.UpdateAsync(destinationAccount, cancellationToken);
 
-      Transfer transfer = _mapper.Map<Transfer>(transferDto);
+      Transfer transfer = _mapper.Map<Transfer>(request);
       transfer.UpdateTransference();
 
       Transfer transferResponse = await _transferRepository.AddAsync(transfer, cancellationToken);

@@ -30,6 +30,8 @@ public class MainMapperProfile : Profile
     CreateMap<Transfer, TransferDto>().ReverseMap();
     CreateMap<Transfer, TransferResponseDto>().ReverseMap();
 
+    CreateMap<Transfer, ExpressTransferDto>().ReverseMap();
+
     CreateMap<Log, LogResponseDto>().ReverseMap();
   }
 }

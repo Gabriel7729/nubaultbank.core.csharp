@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuBaultBank.Core.Entities.UserAggregate;
+using NuBaultBank.Core.Entities.UserAggregate.Specs;
 using NuBaultBank.Core.Enums;
 using NuBaultBank.Core.Interfaces;
 using NuBaultBank.Core.Models;
@@ -49,7 +50,8 @@ public class GetUserLogged : EndpointBaseAsync
       string token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
       TokenClaim claims = _authService.DecryptToken(token);
 
-      User? user = await _userRepository.GetByIdAsync(claims.UserId, cancellationToken);
+      GetUserWithSpec spec = new(claims.UserId);
+      User? user = await _userRepository.GetBySpecAsync(spec, cancellationToken);
       if (user is null)
         return NotFound(Result<UserResponseDto>.Error(new string[] { $"The user was not found" }));
 

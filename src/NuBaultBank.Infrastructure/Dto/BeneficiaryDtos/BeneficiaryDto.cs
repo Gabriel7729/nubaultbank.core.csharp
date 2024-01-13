@@ -14,6 +14,14 @@ namespace NuBaultBank.Infrastructure.Dto.BeneficiaryDtos;
 
 public class BeneficiaryResponseDTO : BaseResponseDto
 {
+  public BeneficiaryResponseDTO(BeneficiaryDTO beneficiaryDTO, string message, bool isSuccess)
+  {
+    BeneficiaryId = beneficiaryDTO.BeneficiaryId;
+    UserId = beneficiaryDTO.UserId;
+    Name = beneficiaryDTO.Name;
+    PhoneNumber = beneficiaryDTO.PhoneNumber;
+    Email = beneficiaryDTO.Email;
+  }
   public string BeneficiaryId { get; set; } = string.Empty;
   public bool Success { get; set; }
   public string Message { get; set; } = string.Empty;

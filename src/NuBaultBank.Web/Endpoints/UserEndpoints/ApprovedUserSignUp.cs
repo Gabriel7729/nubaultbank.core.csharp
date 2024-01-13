@@ -14,7 +14,6 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace NuBaultBank.Web.Endpoints.UserEndpoints;
 
-[Authorize]
 public class ApprovedUserSignUp : EndpointBaseAsync
 .WithRequest<Guid>
 .WithActionResult<GeneralResponse>
