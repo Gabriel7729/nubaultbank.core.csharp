@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using NuBaultBank.Core.Entities.LogAggregate;
 using NuBaultBank.Core.Entities.ProductAggregate;
+using NuBaultBank.Core.Entities.TransferAggregate;
 using NuBaultBank.Core.Entities.UserAggregate;
 using NuBaultBank.Core.Entities.BeneficiaryAggregate;
 using NuBaultBank.Core.Interfaces;
@@ -25,6 +26,9 @@ public class AppDbContext : DbContext
   public DbSet<User> Users => Set<User>();
   public DbSet<Account> Accounts => Set<Account>();
   public DbSet<Beneficiary> beneficiaries => Set<Beneficiary>();
+  public DbSet<Loan> Loans => Set<Loan>();
+  public DbSet<Payment> Payments => Set<Payment>();
+  public DbSet<Transfer> Transfers => Set<Transfer>();
   public DbSet<Log> Logs => Set<Log>();
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {

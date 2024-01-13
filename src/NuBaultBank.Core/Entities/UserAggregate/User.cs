@@ -17,6 +17,8 @@ public class User : EntityBase, IAggregateRoot
 
   public ICollection<Account> Accounts { get; set; } = new List<Account>();
   public ICollection<Beneficiary> Beneficiaries { get; set; } = new List<Beneficiary>();
+  public ICollection<Loan> Loans { get; set; } = new List<Loan>();
+
   public void CallEventUserCreatedAddCheckingAccount()
   {
     RegisterDomainEvent(new UserCreatedAddCheckingAccount(this));

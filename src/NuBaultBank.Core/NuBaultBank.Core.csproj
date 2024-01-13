@@ -21,8 +21,4 @@
     <ProjectReference Include="..\NuBaultBank.SharedKernel\NuBaultBank.SharedKernel.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Entities\BeneficiarieAggregate\" />
-  </ItemGroup>
-
 </Project>
