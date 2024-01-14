@@ -1,4 +1,5 @@
-﻿using NuBaultBank.Core.Enums;
+﻿using NuBaultBank.Core.Entities.TransferAggregate;
+using NuBaultBank.Core.Enums;
 using NuBaultBank.Core.Interfaces;
 using NuBaultBank.SharedKernel;
 using NuBaultBank.SharedKernel.Interfaces;
@@ -10,6 +11,8 @@ public class Account : EntityBase, IAggregateRoot
   public decimal Balance { get; private set; }
   public AccountType AccountType { get; set; }
   public Guid UserId { get; set; }
+
+  public ICollection<Transfer> Transfers { get; set; } = new List<Transfer>();
 
   public static async Task<string> GenerateAccountNumberAsync(IProductService productService)
   {

@@ -1,4 +1,5 @@
-﻿using NuBaultBank.Core.Entities.ProductAggregate;
+﻿using NuBaultBank.Core.Entities.BeneficiaryAggregate;
+using NuBaultBank.Core.Entities.ProductAggregate;
 using NuBaultBank.Core.Entities.UserAggregate.Events;
 using NuBaultBank.SharedKernel;
 using NuBaultBank.SharedKernel.Interfaces;
@@ -15,6 +16,8 @@ public class User : EntityBase, IAggregateRoot
   public string Password { get; set; } = string.Empty;
 
   public ICollection<Account> Accounts { get; set; } = new List<Account>();
+  public ICollection<Beneficiary> Beneficiaries { get; set; } = new List<Beneficiary>();
+  public ICollection<Loan> Loans { get; set; } = new List<Loan>();
 
   public void CallEventUserCreatedAddCheckingAccount()
   {
