@@ -57,14 +57,14 @@ public class ApprovedUserSignUp : EndpointBaseAsync
       user.IsActive = true;
 
       await _userRepository.UpdateAsync(user, cancellationToken);
-      await _logService.CreateLog(HttpContext, "Usuario ha sido habilitando con exito", ActionStatus.Success, user.Id, cancellationToken: cancellationToken);
+      await _logService.CreateLog("", "Usuario ha sido habilitando con exito", ActionStatus.Success, user.Id, cancellationToken: cancellationToken);
 
       var result = Result<GeneralResponse>.Success(new GeneralResponse(true, "Usuario ha sido habilitado con exito"));
       return Ok(result);
     }
     catch (Exception ex)
     {
-      await _logService.CreateLog(HttpContext, "Ha ocurrido un error al activar el usuario", ActionStatus.Error, exceptionMessage: ex.ToString(), cancellationToken: cancellationToken);
+      await _logService.CreateLog("", "Ha ocurrido un error al activar el usuario", ActionStatus.Error, exceptionMessage: ex.ToString(), cancellationToken: cancellationToken);
       return BadRequest(Result<UserResponseDto>.Error(new string[] { "Ha ocurrido un error al activar el usuario", ex.Message }));
     }
   }

@@ -19,7 +19,7 @@ public class PayLoan : EndpointBaseAsync.WithRequest<PayLoanRequest>.WithActionR
   {
     _loanService = loanService;
   }
-  [HttpGet("/api/User/Paginated")]
+  [HttpGet("/api/Product/Loan/Pay")]
   [SwaggerOperation(
           Summary = "Make payment for a Loan of a user",
           Description = "Make payment for a Loan of a user",

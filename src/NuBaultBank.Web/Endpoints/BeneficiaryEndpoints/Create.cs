@@ -47,7 +47,7 @@ public class Create : EndpointBaseAsync
       // Add beneficiary to user
       Beneficiary beneficiary = _mapper.Map<Beneficiary>(requestDto);
       user.Beneficiaries.Add(beneficiary);
-      await _userRepository.UpdateAsync(user);
+      await _userRepository.UpdateAsync(user, cancellationToken);
 
       // Return DTO of added beneficiary
       BeneficiaryDTO beneficiaryDTO = _mapper.Map<BeneficiaryDTO>(beneficiary);
