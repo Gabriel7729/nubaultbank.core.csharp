@@ -1,4 +1,5 @@
 ﻿using NuBaultBank.Core.Entities.BeneficiaryAggregate;
+using NuBaultBank.Infrastructure.Dto.TransferDtos;
 
 namespace NuBaultBank.Infrastructure.Dto.UserDtos;
 public class UserDto
@@ -22,5 +23,6 @@ public class UserResponseDto : BaseResponseDto
   public string IdNumber { get; set; } = string.Empty;
   public string PhoneNumber { get; set; } = string.Empty;
   public string Email { get; set; } = string.Empty;
+  public bool IsActive { get; set; }
   public ICollection<Beneficiary> Beneficiaries { get; set; }
 }
