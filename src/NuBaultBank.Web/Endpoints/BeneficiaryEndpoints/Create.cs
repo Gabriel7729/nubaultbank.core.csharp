@@ -40,7 +40,10 @@ public class Create : EndpointBaseAsync
   {
     try
     {
-      User? user = await _userRepository.GetByIdAsync(requestDto.UserId, cancellationToken);
+      if (!Guid.TryParse(requestDto.UserId, out Guid userIdGuid))
+        return BadRequest(Result<BeneficiaryResponseDTO>.Error("El formato del UserId no es válido"));
+
+      User? user = await _userRepository.GetByIdAsync(userIdGuid, cancellationToken);
       if (user is null)
         return BadRequest(Result<BeneficiaryResponseDTO>.Error("El usuario no fue encontrado"));
 
@@ -58,7 +61,6 @@ public class Create : EndpointBaseAsync
     }
     catch (Exception ex)
     {
-
       await _logService.CreateLog(HttpContext, "Ha ocurrido un error al agregar el beneficiario", ActionStatus.Error, exceptionMessage: ex.ToString(), cancellationToken: cancellationToken);
       return BadRequest(Result<BeneficiaryResponseDTO>.Error(new string[] { "Ha ocurrido un error al agregar el beneficiario", ex.Message }));
     }
