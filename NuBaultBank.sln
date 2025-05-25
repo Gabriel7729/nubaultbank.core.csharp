@@ -20,6 +20,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NuBaultBank.SharedKernel", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NuBaultBank.Web", "src\NuBaultBank.Web\NuBaultBank.Web.csproj", "{FB88719C-5F75-47B9-B5F5-C75DE6F19CD5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuBaultBank.UnitTest", "tests\NuBaultBank.UnitTest\NuBaultBank.UnitTest.csproj", "{E9DEF671-5DDC-4F77-855C-63CEBF4C9690}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +46,10 @@ Global
 		{FB88719C-5F75-47B9-B5F5-C75DE6F19CD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB88719C-5F75-47B9-B5F5-C75DE6F19CD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB88719C-5F75-47B9-B5F5-C75DE6F19CD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9DEF671-5DDC-4F77-855C-63CEBF4C9690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9DEF671-5DDC-4F77-855C-63CEBF4C9690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9DEF671-5DDC-4F77-855C-63CEBF4C9690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9DEF671-5DDC-4F77-855C-63CEBF4C9690}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +59,7 @@ Global
 		{559C598E-EC28-4999-B125-276A3EA36CD4} = {106AE906-5075-410A-B941-912F811848EE}
 		{3472C970-6B29-43F4-81A5-1F23980DD996} = {106AE906-5075-410A-B941-912F811848EE}
 		{FB88719C-5F75-47B9-B5F5-C75DE6F19CD5} = {106AE906-5075-410A-B941-912F811848EE}
+		{E9DEF671-5DDC-4F77-855C-63CEBF4C9690} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0F19343-8185-4A9F-9165-0EA8544BC925}

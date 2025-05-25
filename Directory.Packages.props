@@ -19,7 +19,6 @@
     <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="6.0.1" />
     <PackageVersion Include="Autofac" Version="6.3.0" />
     <PackageVersion Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
-    <PackageVersion Include="coverlet.collector" Version="3.1.2" />
     <PackageVersion Include="MediatR" Version="10.0.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.5" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.5" />
@@ -28,9 +27,7 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.5" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.5" />
-    <PackageVersion Include="Moq" Version="4.18.1" />
     <PackageVersion Include="NETStandard.Library" Version="2.0.3" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageVersion Include="ReportGenerator" Version="5.1.9" />
@@ -39,8 +36,6 @@
     <PackageVersion Include="SQLite" Version="3.13.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.3.1" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.1" />
-    <PackageVersion Include="xunit" Version="2.4.1" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5" />
     <PackageVersion Include="Azure.Identity" Version="1.8.0" />
     <PackageVersion Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.2.2" />
     <PackageVersion Include="Microsoft.Azure.KeyVault" Version="3.0.5" />
@@ -49,5 +44,12 @@
     <PackageVersion Include="Microsoft.IdentityModel.Tokens" Version="6.27.0" />
     <PackageVersion Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="7.1.2" />
+    <!--Tests Packages -->
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+    <PackageVersion Include="xunit" Version="2.4.1" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.5" />
+    <PackageVersion Include="Moq" Version="4.18.1" />
+    <PackageVersion Include="FluentAssertions" Version="6.11.0" />
+    <PackageVersion Include="coverlet.collector" Version="3.1.2" />
   </ItemGroup>
 </Project>
